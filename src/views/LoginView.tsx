@@ -5,11 +5,13 @@ export default function LoginView () {
 
         <>
         
-            <div className="text-6xl">LoginView</div>
+            <h1 className="text-white text-4xl font-bold">Login</h1>
         
-            <nav>
-                <Link to="/auth/register">
-                
+            <nav className="mt-10">
+                <Link 
+                    className="text-center text-white text-lg block"
+                    to="/auth/register">
+
                     Don't have an account? Create one here.
                 
                 </Link>
