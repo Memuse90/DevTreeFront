@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import {useForm} from 'react-hook-form';
+import axios from 'axios';
 import ErrorMessage from "../components/ErrorMessage";
+import type { RegisterForm } from "../types";
 
 function RegisterView() {
 
-    const initialValues = {
+    const initialValues : RegisterForm = {
         name: '',
         email: '',
         handle: '',
@@ -16,8 +18,16 @@ function RegisterView() {
 
     const password = watch('password');
     
-    const handleRegister = () => {
-        console.log('from handleRegister');
+    const handleRegister = async (formData: RegisterForm) => {
+        try {
+
+            const response = await axios.post('http://localhost:4000/auth/register',formData);
+
+            console.log(response)
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return ( 
@@ -96,7 +106,7 @@ function RegisterView() {
                         className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password_confirmation', {
                             required: 'The Password confirmation is required',
-                            validate: (value) => value === password || 'Passwords are not equal'
+                            validate: (value) => value === password || 'Passwords do not match'
                         })}
                     />
                     {errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
